@@ -1,0 +1,12 @@
+<div class="container alert alert-success alert-dismissible fade show" role="alert" *ngIf="showSuccess()">
+    <strong>สำเร็จ!</strong> {{message}}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close" >
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="container alert alert-danger alert-dismissible fade show" role="alert" *ngIf="showError(type)">
+    <strong>ผิดพลาด!</strong> การเพิ่มคำถามมีบางสิงผิดพลาด ลองใหม่อีกครั้ง.
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>

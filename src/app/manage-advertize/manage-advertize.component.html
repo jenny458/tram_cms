@@ -1,0 +1,75 @@
+<div class="container" style="margin-top: 50px">
+    <h1>จัดการโฆษณา</h1>
+</div>
+
+<alert-message [type]="alertType" [message]="alertMessage"></alert-message>
+
+<div class="container" style="margin-top: 50px; margin-bottom: 50px;border-bottom: 1px solid #000;" *ngIf="list != null && list.length > 0">
+    <button type="button" class="btn btn-primary" style="margin-bottom: 10px" (click)="create()" [disabled]="isNew">สร้างใหม่</button>
+    <app-list [list]="list" [header]="header" [showItem]="item" (deleteEvent)="delete($event)" (editEvent)="edit($event)" (viewEvent)="view($event)" [isDrag]=true></app-list>
+</div>
+
+<div class="container" style="margin-top: 50px; margin-bottom: 50px;border-bottom: 1px solid #000;" *ngIf="list == null || (list != null && list.length == 0) ">
+    <button type="button" class="btn btn-primary" style="margin-bottom: 10px" (click)="create()" [disabled]="isNew">สร้างใหม่</button>
+    <br/>
+    No data found.
+</div>
+
+<div class="container" *ngIf="isNew || isEdit" #target>
+        <form #advForm="ngForm" (ngSubmit)="onSubmit(advForm)">
+
+            <div class="form-group row">
+                <label for="inputLinkText" class="col-sm-2 col-form-label">Link</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="inputLinkText" placeholder="ลิ้งค์" name="url" [(ngModel)]="adv.url">
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="inputDateText" class="col-sm-2 col-form-label">วันที่เริ่มใช้โฆษณา</label>
+                <div class="col-sm-10 input-group">
+                    <!--Default date and time picker -->
+                    <input class="form-control" placeholder="yyyy-mm-dd" (click)="d.toggle()"
+                            name="dp" [(ngModel)]="selectedDate" ngbDatepicker #d="ngbDatepicker" style="width: 70%">
+                    <button class="form-control btn btn-outline-secondary calendar" (click)="d.toggle()" type="button">เปิดปฏิทิน</button>
+                </div>
+            </div>
+
+            <!-- <div class="form-group row">
+                <label for="inputTimeText" class="col-sm-2 col-form-label">เวลาเริ่มใช้โฆษณา</label>
+                <div class="col-sm-10 input-group">
+                    <ngb-timepicker [(ngModel)]="selectedTime"></ngb-timepicker>
+                </div>
+            </div> -->
+
+            
+
+            <fieldset class="form-group">
+                <div class="row">
+                    <legend class="col-form-label col-sm-2 pt-0">สถานะ</legend>
+                    <div class="col-sm-10">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="active" id="active" value="ใช้งาน" checked [(ngModel)]="adv.active">
+                            <label class="form-check-label" for="active">
+                                ใช้งาน
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="active" id="inActive" value="ไม่ใช้งาน" [(ngModel)]="adv.active">
+                            <label class="form-check-label" for="inActive">
+                                ไม่ใช้งาน
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+
+            <div class="form-group row">
+                <div class="col-sm-10">
+                    <button type="submit" class="btn btn-primary" style="margin-right: 20px;">บันทึก</button>
+                    <button type="reset" class="btn btn-primary" style="margin-right: 20px;" (click)="onClear(advForm)">ล้าง</button>
+                    <button type="button" class="btn btn-primary" (click)="onCancel(advForm)">ยกเลิก</button>
+                </div>
+            </div>
+    </form>
+</div>

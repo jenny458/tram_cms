@@ -1,0 +1,64 @@
+<table class="table table-striped table-hover">
+    <thead>
+      <tr>
+        <th scope="col">No.</th>
+        <th scope="col" *ngFor="let h of header">{{h}}</th>
+        <th scope="col">&nbsp;</th>
+      </tr>
+    </thead>
+    <tbody cdkDropList (cdkDropListDropped)="onDrop($event)" >
+      <tr *ngFor="let item of list; let i = index" cdkDrag cdkDragLockAxis="y" [cdkDragDisabled]="!isDrag">
+        <th scope="row" (click)="view(item.id)">
+            <ng-container [ngTemplateOutlet]="dragHandleTmpl" *ngIf="isDrag == true"></ng-container>
+            {{i+1}}
+        </th>
+        <td *ngFor="let i of showItem" (click)="view(item.id)">
+            <div *ngIf="i != 'url' && !isPic(i, item[i]) && !isUrl(i, item[i])">{{item[i]}}</div>
+            <div *ngIf="isUrl(i, item[i])"><a href="{{item[i]}}" target="_blank">{{item[i]}}</a></div>
+            <div *ngIf="isPic(i, item[i])"><a (click)="openModal(modal, item[i])" style="color: blue; text-decoration: underline; cursor: pointer; ">{{item[i]}}</a></div>
+        </td>
+        <td>
+            <button type="button" class="btn btn-success" style="margin-right: 20px" (click)="edit(item.id)">แก้ไข</button>
+            <button type="button" class="btn btn-danger" (click)="open(confirmModal, item.id)">ลบ</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+<ng-template #confirmModal let-modal>
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">ยืนยันการลบ</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            ต้องการลบใช่หรือไม่
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="modal.close('save click')">ใช่</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="modal.dismiss('cancel click')">ยกเลิก</button>
+        </div>
+    </div>
+</ng-template>
+<ng-template #modal let-modal>
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">รูปภาพ {{imagePath}}</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body" style="text-align: center">
+            <img src="{{imagePath}}" style="width: 760px;">
+        </div>
+    </div>
+</ng-template>
+<ng-template #dragHandleTmpl>
+    <svg class="bi bi-list handle" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor"
+        xmlns="http://www.w3.org/2000/svg">
+        <path fill-rule="evenodd"
+            d="M2.5 11.5A.5.5 0 013 11h10a.5.5 0 010 1H3a.5.5 0 01-.5-.5zm0-4A.5.5 0 013 7h10a.5.5 0 010 1H3a.5.5 0 01-.5-.5zm0-4A.5.5 0 013 3h10a.5.5 0 010 1H3a.5.5 0 01-.5-.5z"
+            clip-rule="evenodd" />
+    </svg>
+</ng-template>
