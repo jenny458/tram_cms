@@ -2,12 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Quiz } from './model/quiz';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class QuizService {
-  private restUrl = '';
+  private restUrl = environment.apiUrl;
   private options = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
 
   constructor(

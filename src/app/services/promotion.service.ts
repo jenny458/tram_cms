@@ -2,13 +2,14 @@ import { Injectable } from '@angular/core';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Promotion } from './model/promotion';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PromotionService {
 
-  private restUrl = '';
+  private restUrl = environment.apiUrl;
   private options = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
 
   constructor(

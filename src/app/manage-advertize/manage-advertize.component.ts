@@ -101,8 +101,6 @@ export class ManageAdvertizeComponent implements OnInit {
 
   onClear(form: NgForm): void {
     form.resetForm();
-    // this.quiz = new Quiz();
-    // console.log('onclear', this.quiz);
   }
 
   onCancel(form?: NgForm): void {

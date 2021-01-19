@@ -2,12 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { Advertize } from './model/advertize';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AdvertizeService {
-  private restUrl = '';
+  private restUrl = environment.apiUrl;
   private options = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
 
   constructor(

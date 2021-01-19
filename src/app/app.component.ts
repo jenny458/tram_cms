@@ -7,4 +7,17 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'cms';
+  username = "";
+  password = "";
+  isLogin = false;
+
+  login(){
+    if(this.username === "admin" && this.password === "password!@#"){
+        this.isLogin = true;
+    }
+  }
+
+  logout(){
+    this.isLogin = false;
+  }
 }

@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
+import { NgForm } from '@angular/forms';
+import { SettingService } from '../services/setting.service';
+import { Setting } from '../services/model/setting';
 
 @Component({
   selector: 'app-setting',
@@ -7,6 +10,14 @@ import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/dr
   styleUrls: ['./setting.component.scss']
 })
 export class SettingComponent implements OnInit {
+
+  timeStart:any = {};
+  timeEnd:any = {};
+  point = 10;
+  settingId: string | undefined;
+  firstSetting = true;
+  alertType: string = "";
+  alertMessage: string = "";
 
   title = 'my-drag-drop';
   movies = [
@@ -35,9 +46,20 @@ export class SettingComponent implements OnInit {
     'Walk dog'
   ];
 
-  constructor() { }
+  constructor(private service: SettingService) { }
 
   ngOnInit(): void {
+    this.service.getAll().subscribe((result: Setting[])=> {
+      if(result && result.length > 0){
+        this.settingId = result[0].id;
+        this.firstSetting = false;
+        this.timeStart = {hour: result[0].bonus_time_start_hour, minute: result[0].bonus_time_start_minute};
+        this.timeEnd = { hour: result[0].bonus_time_end_hour, minute: result[0].bonus_time_end_minute};
+      }else{
+        this.timeStart = {hour: 12, minute: 0};
+        this.timeEnd = {hour: 12, minute: 0};
+      }
+    });
   }
 
   drop(event: CdkDragDrop<string[]>) {
@@ -49,5 +71,28 @@ export class SettingComponent implements OnInit {
     }
   }
 
-
+  onSubmit(it: NgForm): void {
+    const setting = new Setting(this.point, this.timeStart.hour, this.timeStart.minute, this.timeEnd.hour, this.timeEnd.minute);
+      if(this.firstSetting){
+        this.service.save(setting).subscribe((result: Setting)=> {
+            this.settingId = result.id;
+            this.firstSetting = false;
+            this.alertType = "success";
+            this.alertMessage = "บันทึกการเปลี่ยนแปลงตั้งค่าสำเร็จ.";
+          }
+        );
+      }else{
+        this.service.edit(this.settingId!, setting).subscribe(
+          (result: Setting)=> {
+            this.settingId = result.id;
+            this.alertType = "success";
+            this.alertMessage = "บันทึกการเปลี่ยนแปลงตั้งค่าสำเร็จ.";
+          },
+          (error) => {
+            console.log('errro! ', error);
+            this.alertType = "error";
+          }
+      );
+      }
+  }
 }

@@ -34,9 +34,6 @@ export class ListComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    console.log('list', this.list);
-    console.log('header', this.header);
-    console.log('showItem', this.showItem);
   }
 
   delete(id: string): void{
@@ -67,7 +64,7 @@ export class ListComponent implements OnInit {
   }
 
   isPic(column: string, file: any): boolean{
-    if(file && (column == 'quiz' || column == 'choice_1' || column == 'choice_2' || column == 'detail') ){
+    if(file && (column == 'quiz_pic' || column == 'choice_1' || column == 'choice_2' || column == 'detail') ){
       return file.startsWith('/quiz') || file.startsWith('/choice1') || file.startsWith('/choice2') || ( column == 'detail' && file.startsWith('/promotion') );
     }else{
       return false;

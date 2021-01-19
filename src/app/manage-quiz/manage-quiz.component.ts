@@ -14,10 +14,10 @@ export class ManageQuizComponent implements OnInit {
 
   quizList: Quiz[] = [];
   quizeHeader: string[] = [
-    "ประเภทคำถาม", "คำถาม/ภาพคำถาม", "ประเภทตัวเลือก", "ตัวเลือกที่ 1", "ตัวเลือกที่ 2", "เฉลย", "เวลา", "คะแนน"
+    "คำถาม", "ภาพคำถาม", "ประเภทตัวเลือก", "ตัวเลือกที่ 1", "ตัวเลือกที่ 2", "เฉลย", "เวลา(วินาที)", "คะแนน"
   ];
   quizeItem: string[] = [
-    "type", "quiz", "choice_type", "choice_1", "choice_2", "answer", "timer", "point"
+    "quiz", "quiz_pic", "choice_type", "choice_1", "choice_2", "answer", "timer", "point"
   ];
 
   isNew: boolean = false;
@@ -114,9 +114,8 @@ export class ManageQuizComponent implements OnInit {
   upload(folder: string, event: any): void {
     this.uploadService.upload(folder,event.target.files[0] as File)
       .subscribe(resp => {
-        console.log(resp);
         if(folder == 'quiz'){
-          this.quiz.quiz = resp['url'];
+          this.quiz.quiz_pic = resp['url'];
         }else if(folder == 'choice1'){
           this.quiz.choice_1 = resp['url'];
         }else if(folder == 'choice2'){
@@ -127,8 +126,6 @@ export class ManageQuizComponent implements OnInit {
 
   onClear(form: NgForm): void {
     form.resetForm();
-    // this.quiz = new Quiz();
-    // console.log('onclear', this.quiz);
   }
 
   onCancel(form?: NgForm): void {
@@ -161,11 +158,6 @@ export class ManageQuizComponent implements OnInit {
       (resp) => {
         this.quiz = resp as Quiz;
         this.isEdit = true;
-        if(this.quiz.type == 'รูปภาพ'){
-          this.selectedTypeText = false;
-        }else{
-          this.selectedTypeText = true;
-        }
         if(this.quiz.choice_type == 'รูปภาพ'){
           this.selectedChoiceTypeText = false;
         }else{

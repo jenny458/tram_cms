@@ -15,34 +15,14 @@
 <div class="container" *ngIf="isNew || isEdit" #target>
         <form #quizForm="ngForm" (ngSubmit)="onSubmit(quizForm)">
 
-            <fieldset class="form-group">
-                <div class="row">
-                    <legend class="col-form-label col-sm-2 pt-0">ประเภทคำถาม</legend>
-                    <div class="col-sm-10">
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="type" id="quizTypeText" value="ข้อความ" (change)="showTypeText()" checked [(ngModel)]="quiz.type">
-                            <label class="form-check-label" for="quizTypeText">
-                                ข้อความ
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="type" id="quizTypePic" value="รูปภาพ" (change)="showTypePic()" [(ngModel)]="quiz.type">
-                            <label class="form-check-label" for="quizTypePic">
-                                รูปภาพ
-                            </label>
-                        </div>
-                    </div>
-                </div>
-            </fieldset>
-
-            <div class="form-group row" *ngIf="selectedTypeText">
+            <div class="form-group row">
                 <label for="inputQuizText" class="col-sm-2 col-form-label">คำถาม</label>
                 <div class="col-sm-10">
                     <input type="text" class="form-control" id="inputQuizText" placeholder="คำถาม" name="quiz" [(ngModel)]="quiz.quiz">
                 </div>
             </div>
 
-            <div class="form-group row" *ngIf="!selectedTypeText">
+            <div class="form-group row">
                 <label for="inputQuizPic" class="col-sm-2 col-form-label">ไฟล์คำถาม</label>
                 <div class="col-sm-10">
                     <input type="file" class="form-control" id="inputQuizPic" placeholder="คำถาม" accept=".png,.gif,.jpg,.jpeg"  (change)="upload('quiz', $event)" >
@@ -123,7 +103,7 @@
             <div class="form-group row">
                 <label for="inputTimmer" class="col-sm-2 col-form-label">เวลา (วินาที)</label>
                 <div class="col-sm-10">
-                    <input type="number" class="form-control" id="inputTimmer" value="1" min="1" max="60" step="1" name="timer" [(ngModel)]="quiz.timer">
+                    <input type="number" class="form-control" id="inputTimmer" value="30" min="1" max="60" step="1" name="timer" [(ngModel)]="quiz.timer">
                 </div>
             </div>
 

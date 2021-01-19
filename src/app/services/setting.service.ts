@@ -2,13 +2,14 @@ import { Injectable } from '@angular/core';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Setting } from './model/setting';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SettingService {
 
-  private restUrl = '';
+  private restUrl = environment.apiUrl;
   private options = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
 
   constructor(
@@ -19,8 +20,8 @@ export class SettingService {
     return this.http.get<Setting[]>(this.restUrl+'/setting');
   }
 
-  save(seting: Setting): Observable<Setting>{
-    return this.http.post<Setting>(this.restUrl+'/setting', seting, this.options);
+  save(setting: Setting): Observable<Setting>{
+    return this.http.post<Setting>(this.restUrl+'/setting', setting, this.options);
   }
 
   delete(id: string): Observable<Object>{
@@ -31,7 +32,7 @@ export class SettingService {
     return this.http.get<Setting>(`${this.restUrl}/setting/${id}`);
   }
 
-  edit(id: string, seting: Setting): Observable<Setting>{
-    return this.http.put<Setting>(`${this.restUrl}/setting/${id}`, seting, this.options);
+  edit(id: string, setting: Setting): Observable<Setting>{
+    return this.http.put<Setting>(`${this.restUrl}/setting/${id}`, setting, this.options);
   }
 }
