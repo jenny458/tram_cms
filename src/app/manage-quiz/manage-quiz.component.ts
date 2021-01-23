@@ -132,6 +132,7 @@ export class ManageQuizComponent implements OnInit {
     this.getQuizzes();
     this.isNew = false;
     this.isEdit = false;
+    this.selectedChoiceTypeText = true;
     if (form) form.resetForm();
     this.quiz = new Quiz();
   }
