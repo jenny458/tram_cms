@@ -34,4 +34,8 @@ export class QuizService {
   edit(id: string, quiz: Quiz): Observable<Quiz>{
     return this.http.put<Quiz>(`${this.restUrl}/quiz/${id}`, quiz, this.options);
   }
+
+  search(key: String): Observable<Quiz[]>{
+    return this.http.post<Quiz[]>(this.restUrl+'/quiz/search', {key:key}, this.options);
+  }
 }

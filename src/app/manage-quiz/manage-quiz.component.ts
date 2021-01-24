@@ -22,13 +22,15 @@ export class ManageQuizComponent implements OnInit {
 
   isNew: boolean = false;
   isEdit: boolean = false;
+  isSearch: boolean = false;
   selectedTypeText: boolean = true;
   selectedChoiceTypeText: boolean = true;
   alertType: string = "";
   alertMessage: string = "";
+  key: string = "";
 
-  @ViewChild('target', { static: false })
-  newTarget!: ElementRef;
+  // @ViewChild('target', { static: false })
+  // newTarget!: ElementRef;
 
   @ViewChild('alert', { static: false })
   alertTarget!: ElementRef;
@@ -57,9 +59,9 @@ export class ManageQuizComponent implements OnInit {
   create(): void {
     this.isNew = true;
     this.quiz = new Quiz();
-    setTimeout(() => {
-      this.newTarget.nativeElement.scrollIntoView({ behavior: 'smooth' });
-    }, 0);
+    // setTimeout(() => {
+    //   this.newTarget.nativeElement.scrollIntoView({ behavior: 'smooth' });
+    // }, 0);
   }
 
   showTypeText(): void {
@@ -126,6 +128,26 @@ export class ManageQuizComponent implements OnInit {
 
   onClear(form: NgForm): void {
     form.resetForm();
+    this.selectedChoiceTypeText = true;
+  }
+
+  onSearch(): void{
+    this.service.search(this.key).subscribe(
+      (resp)=>{
+        if(resp.length == 0) this.quizList = [];
+        this.quizList = resp;
+      },
+      (error) => {
+        console.log('errro! ', error);
+        this.alertType = "error";
+        this.scoreToAlert();
+      }
+    );
+  }
+
+  onSearchCancel(): void{
+    this.key = "";
+    this.getQuizzes();
   }
 
   onCancel(form?: NgForm): void {
@@ -164,9 +186,9 @@ export class ManageQuizComponent implements OnInit {
         }else{
           this.selectedChoiceTypeText = true;
         }
-        setTimeout(() => {
-          this.newTarget.nativeElement.scrollIntoView({ behavior: 'smooth' });
-        }, 0);
+        // setTimeout(() => {
+        //   this.newTarget.nativeElement.scrollIntoView({ behavior: 'smooth' });
+        // }, 0);
       },
       (error) => {
         console.log('errro! ', error);
