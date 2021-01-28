@@ -44,28 +44,6 @@
                 </div>
             </div>
 
-
-
-            <fieldset class="form-group">
-                <div class="row">
-                    <legend class="col-form-label col-sm-2 pt-0">ประเภทตัวเลือก</legend>
-                    <div class="col-sm-10">
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="choice_type" id="choiceTypeText" value="ข้อความ" (change)="showChoiceTypeText()" checked [(ngModel)]="quiz.choice_type">
-                            <label class="form-check-label" for="choiceTypeText">
-                                ข้อความ
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="choice_type" id="choiceTypePic" value="รูปภาพ" (change)="showChoiceTypePic()" [(ngModel)]="quiz.choice_type">
-                            <label class="form-check-label" for="choiceTypePic">
-                                รูปภาพ
-                            </label>
-                        </div>
-                    </div>
-                </div>
-            </fieldset>
-
             <div class="form-group row" *ngIf="selectedChoiceTypeText">
                 <label for="inputChoice1Text" class="col-sm-2 col-form-label">ตัวเลือก 1</label>
                 <div class="col-sm-10">

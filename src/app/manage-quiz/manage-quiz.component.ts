@@ -14,10 +14,10 @@ export class ManageQuizComponent implements OnInit {
 
   quizList: Quiz[] = [];
   quizeHeader: string[] = [
-    "คำถาม", "ภาพคำถาม", "ประเภทตัวเลือก", "ตัวเลือกที่ 1", "ตัวเลือกที่ 2", "เฉลย", "เวลา(วินาที)", "คะแนน"
+    "คำถาม", "ภาพคำถาม", "ตัวเลือกที่ 1", "ตัวเลือกที่ 2", "เฉลย", "เวลา(วินาที)", "คะแนน"
   ];
   quizeItem: string[] = [
-    "quiz", "quiz_pic", "choice_type", "choice_1", "choice_2", "answer", "timer", "point"
+    "quiz", "quiz_pic", "choice_1", "choice_2", "answer", "timer", "point"
   ];
 
   isNew: boolean = false;
