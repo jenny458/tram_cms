@@ -2,6 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { AdvertizeService } from '../services/advertize.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-list',
@@ -59,7 +60,7 @@ export class ListComponent implements OnInit {
   }
 
   openModal(content:any, path: string) {
-    this.imagePath = 'http://localhost:8080'+path;
+    this.imagePath = path;
     this.modalService.open(content, { centered: true, size: 'lg' });
   }
 
