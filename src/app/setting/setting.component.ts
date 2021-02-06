@@ -13,7 +13,7 @@ export class SettingComponent implements OnInit {
 
   timeStart:any = {};
   timeEnd:any = {};
-  point = 10;
+  point:number | undefined;
   settingId: string | undefined;
   firstSetting = true;
   alertType: string = "";
@@ -55,9 +55,11 @@ export class SettingComponent implements OnInit {
         this.firstSetting = false;
         this.timeStart = {hour: result[0].bonus_time_start_hour, minute: result[0].bonus_time_start_minute};
         this.timeEnd = { hour: result[0].bonus_time_end_hour, minute: result[0].bonus_time_end_minute};
+        this.point = result[0].bonus;
       }else{
         this.timeStart = {hour: 12, minute: 0};
         this.timeEnd = {hour: 12, minute: 0};
+        this.point = 10;
       }
     });
   }
